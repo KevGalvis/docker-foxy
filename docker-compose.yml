@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+  ros2_foxy:
+    image: osrf/ros:foxy-desktop
+    container_name: ros_foxy_gui
+    network_mode: "host"
+    environment:
+      - DISPLAY=${DISPLAY}
+      - XAUTHORITY=/root/.Xauthority
+      - RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
+      - CYCLONEDDS_URI=/workspace/cyclonedds_config.xml
+    volumes:
+      - ${HOME}/.Xauthority:/root/.Xauthority:rw
+      - ${PWD}/workspace:/workspace
+      - /dev/dri:/dev/dri
+    devices:
+      - /dev/dri:/dev/dri
+    privileged: true
+    command: bash
+    stdin_open: true
+    tty: true
